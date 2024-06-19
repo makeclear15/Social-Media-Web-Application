@@ -1,0 +1,19 @@
+/* Editing form */
+input[type="text"],
+textarea,
+input[type="file"],
+input[type="number"],
+input[type="tel"],
+input[type="email"]{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/*End of Editing form */
+
+.bottommargin{
+margin-bottom: 16px;
+}

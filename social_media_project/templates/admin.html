@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static '/css/admin.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+    <title>Admin Page</title>
+    <script src="{% static '/js/admin.js' %}" type="application/javascript"></script>
+  </head>
+  <body>
+
+    <header class="top-header">
+      <div id="top-header-1">
+      <img alt="LOGO">
+      <div class="admin_title">
+        Administrator Page
+      </div>
+      <div class="admin_details" onclick="switchForm('admin-profile')">
+        <img class="admin_profile" 
+        src="data:image/png;base64,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">
+        <div class="admin_name"><p>Admin Name</p></div>
+      </div>
+    </div>
+    <div id="nav-icon">
+      <i class="bi bi-list" onclick="shownav()"></i>
+    </div>
+    </header>
+<div>
+</div>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <ul>
+<!--        <a id="display_user" href="adminpage/{{1}}">-->
+          <li onclick="switchForm('display_user')"> <i class="bi bi-house-door-fill"></i>Users</li>
+<!--        </a>-->
+          <li onclick="switchForm('display_user_profile')"> <i class="bi bi-house-door-fill"></i>User Profile</li>
+          <li onclick="switchForm('display_group')"> <i class="bi bi-plus-circle-fill"></i>Group</li>
+          <li onclick="switchForm('display_post')"> <i class="bi bi-gear-fill"></i>Posts</li>
+        </ul>
+        <ul>
+          <a href="index.html">
+          <li class="logout-btn"> <i class="bi bi-box-arrow-left"></i>Logout</li></a>
+        </ul>
+      </aside>
+      <div class="main_content" id="user_profile_list">
+        <div class="table_options">
+          <div class="sort-by">
+            <select id="sort-by" class="sort-select">
+              <option value="">Sort By</option>
+              <option value="profile_id">Profile ID</option>
+              <option value="user_id">User ID</option>
+              <option value="full_name">Full Name</option>
+              <option value="birthdate">Birthdate</option>
+              <option value="created_at">Created At</option>
+            </select>
+          </div>
+           <div>
+            <input class="search-input"  type="text" placeholder="Search">
+          </div>
+
+      </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Profile ID</th>
+              <th>User ID</th>
+              <th>Full Name</th>
+              <th>Bio</th>
+              <th>Profile Picture</th>
+              <th>Cover Photo</th>
+              <th>Birthdate</th>
+              <th>Gender</th>
+              <th>Location</th>
+              <th>Created At</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+           {% for profile in Profiles %}
+              <tr>
+                <td style="text-align: center;">{{ profile.profile_id }}</td>
+                <td>{{ profile.user_id }}</td>
+                <td>{{ profile.full_name }}</td>
+                <td>{{ profile.bio }}</td>
+                <td><img class="profile-picture" src="{{ profile.profile_picture_url }}" alt="Profile Picture"></td>
+                <td><img class="cover-photo" src="{{ profile.cover_photo_url }}" alt="Cover Photo"></td>
+                <td>{{ profile.birthdate }}</td>
+                <td>{{ profile.gender }}</td>
+                <td>{{ profile.location }}</td>
+                <td>{{ profile.created_at }}</td>
+                <td><button>Update</button><button>Delete</button></td>
+              </tr>
+            {% endfor %}
+<!--            <tr>-->
+<!--              <td style="text-align: center;">1</td>-->
+<!--              <td>123</td>-->
+<!--              <td>John Wick</td>-->
+<!--              <td>Software Engineer</td>-->
+<!--              <td><img class="profile-picture" src="images/img3.jpg" alt="Profile Picture"></td>-->
+<!--              <td><img class="cover-photo" src="images/img3.jpg" alt="Cover Photo"></td>-->
+<!--              <td>1990-01-01</td>-->
+<!--              <td>Male</td>-->
+<!--              <td>New York</td>-->
+<!--              <td>2021-06-01</td>-->
+<!--              <td><button>Update</button><button>Delete</button></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td style="text-align: center;">2</td>-->
+<!--              <td>456</td>-->
+<!--              <td>Jane Smith</td>-->
+<!--              <td>Web Designer</td>-->
+<!--              <td><img class="profile-picture" src="images/img3.jpg" alt="Profile Picture"></td>-->
+<!--              <td><img class="cover-photo" src="images/img3.jpg" alt="Cover Photo"></td>-->
+<!--              <td>1995-05-10</td>-->
+<!--              <td>Female</td>-->
+<!--              <td>London</td>-->
+<!--              <td>2021-06-05</td>-->
+<!--              <td><button>Update</button><button>Delete</button></td>-->
+<!--            </tr>-->
+          </tbody>
+        </table>
+
+    </div>
+
+      <div class="main_content" id="user_list">
+        <div class="table_options">
+          <div class="user-button">
+            <button class="add-button">Add User</button>
+          </div>
+          <div class="sort-by">
+            <select class="sort-select">
+              <option value="">Sort By</option>
+              <option value="user_id">User ID</option>
+              <option value="email">Email</option>
+              <option value="phone_no">Phone Number</option>
+              <option value="reg_date">Register Date</option>
+              <option value="last_login_date">Last Login Date</option>
+            </select>
+          </div>
+           <div>
+            <input class="search-input"  type="text" placeholder="Search">
+          </div>
+
+      </div>
+        <table id="userTable" class="table">
+          <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Password</th>
+            <th>Registration Date</th>
+            <th>Last Login Date</th>
+            <th colspan="2">Options</th>
+        </tr>
+        </thead>
+          <tbody>
+          {% for user in Users %}
+          <tr>
+            <td style="text-align: center;">{{user.user_id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone_number}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.registration_date}}</td>
+            <td>{{user.last_login_date}}</td>
+            <td><a href="edit/{{user.user_id}}"><button>Update</button></a></td>
+            <td><a href="delete/{{user.user_id}}"> <button>Delete</button></a></td>
+          </tr>
+          {% endfor %}
+<!--          <tr>-->
+<!--            <td style="text-align: center;">1</td>-->
+<!--            <td>Dinesh</td>-->
+<!--            <td>dineshdinesh15112001@gmail.com</td>-->
+<!--            <td>+918608038008</td>-->
+<!--            <td>123</td>-->
+<!--            <td>2024-01-31 17:13:46.287659</td>-->
+<!--            <td></td>-->
+<!--          </tr>-->
+          </tbody>
+    </table>
+      </div>
+    <div class="main_content" id="group_list">
+     
+        <div class="table_options">
+          <button class="add-button">Add Group</button>
+          <select class="sort-select">
+            <option value="">Sort By</option>
+            <option value="group_id">Group ID</option>
+            <option value="group_name">Group Name</option>
+            <option value="created_by">Created By</option>
+            <option value="created_at">Created At</option>
+          </select>
+          <input type="text" class="search-input" placeholder="Search">
+       
+      </div>
+      
+      <table class="table">
+        <tr>
+          <th>group_id</th>
+          <th>group_name</th>
+          <th>created_by</th>
+          <th>created_at</th>
+          <th>Option</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Group A</td>
+          <td>John Doe</td>
+          <td>2021-01-01</td>
+          <td><button class="view-button">View</button></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Group B</td>
+          <td>Jane Smith</td>
+          <td>2021-02-15</td>
+          <td><button class="view-button">View</button></td>
+        </tr>
+        
+      </table>
+  </div>
+  </div>
+ 
+  </body>
+
+
+</html>

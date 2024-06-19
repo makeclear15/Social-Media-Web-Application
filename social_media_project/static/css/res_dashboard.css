@@ -1,0 +1,52 @@
+@media screen and (max-width: 1080px) {
+    #notification{
+        display: none;
+    }
+    .sidebar{
+        display: block;
+    }
+    .post-list img{
+        height: 200px;
+        width: 45%;
+      }
+      .search-bar input[type="text"] {
+        width: 70%;
+      }
+}
+@media screen and (max-width: 740px) {
+    .sidebar{
+        display: none;
+        position: relative;
+        width: auto;
+        height: max-content;
+    }
+    .main_content{
+        margin-left: 0%;
+    }
+    .dashboard{
+        flex-direction: column;
+    }
+    #nav-icon{
+        display: block;
+      }
+      .sidebar ul {
+        font-size: larger;
+      }
+      .post-list img{
+        height: 200px;
+        width: 90%;
+      }
+      .search-bar input[type="text"] {
+        width: 70%;
+      }
+
+      .profile-picture{
+        width: 150px;
+        height: 150px;
+        margin-top: -70px;
+      }
+      .padding_25_margin_-65 {
+        padding-right: 10%;
+        margin-top: -30px;
+    }
+}

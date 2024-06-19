@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/index_new.css' %}">
+  <title>Social Media Application</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form id="signupForm" method="post" action="signup">
+        {% csrf_token %}
+                <h1>Sign Up</h1>
+                <input type="text" placeholder="UserName" id="signupUsername" name="signupUsername" required>
+                <input type="password" placeholder="Password" id="signupPassword" name="signupPassword" required>
+                <input type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword" required>
+                <input type="tel" placeholder="Mobile" id="mobile" name="mobile" required>
+                <input type="email" placeholder="Email" id="email" name="email" required>
+        <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form id="loginForm" method="post" action="login">
+        {% csrf_token %}
+                <h1>Login</h1><br>
+
+                {% for message in messages %}
+                <span style="color: green; font-weight: bold;font-size: large">
+                    {{message}}</span>
+                {% endfor %}
+
+                <span>login with Username & password</span>
+                <input type="text" id="loginUsername" name="loginUsername" placeholder="Username" required>
+                <input type="password" placeholder="Password" id="loginPassword" name="loginPassword" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome, Friend!</h1>
+                    <p>Create your own profile on pic and click</p>
+                    <button class="hidden" id="login">Log In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                     <h1>Welcome Back!</h1>
+                    <p>Log in with pic and click</p>
+
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static '/js/index_new.js' %}" type="application/javascript"></script>
+</body>
+
+</html>

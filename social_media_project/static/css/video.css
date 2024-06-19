@@ -1,0 +1,41 @@
+.video-container {
+  position: relative;
+  /* max-width: 640px;
+  margin: 0 auto; */
+}
+
+video {
+  width: 100%;
+  display: block;
+  outline: none;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.play-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%);
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 20px solid white;
+}
+
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+}

@@ -1,0 +1,92 @@
+/*.bi-exclamation-square-fill{
+    font-family: system-ui;
+    font-style: normal;
+}
+.hide-text {
+    width:0px
+}
+.bi-exclamation-square-fill:hover .hide-text {
+    width:100px
+} */
+.bi-exclamation-square-fill {
+            font-family: Arial;
+            font-style:normal;
+            transition: transform 0.3s ease; /* Add transition effect */
+        }
+
+        .bi-exclamation-square-fill:hover {
+            transform: scale(1.1); /* Scale up on hover */
+            cursor:pointer;
+            scale:2px;
+        }
+
+        .hide-text {
+            display: none; /* Hide the text by default */
+        }
+
+        .bi-exclamation-square-fill:hover .hide-text {
+            display: inline; /* Display the text on hover */
+            transform: scale(1.2); /* Add transform effect */
+            color: black; /* Example color change */
+        }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.comments {
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+
+.comment-content {
+  display: flow;
+  flex-direction: column;
+}
+
+.modal{
+overflow-y: scroll;
+}
+h4 {
+  margin: 0;
+  font-weight: bold;
+}
+
+p {
+  margin: 5px 0;
+}
+
+.add-comment {
+  display: flex;
+  margin-top: 5px;
+}
+
+.add-comment input[type='text'] {
+  flex: 1;
+  padding: 5px;
+  margin: 0px;
+}
+.cmt{
+    width:80%;
+}
+.add-comment button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: x-large;
+   color: orange;
+   margin: 0px
+}
+
+.add-comment button img {
+  width: 30px;
+  height: 30px;
+}

@@ -1,0 +1,128 @@
+
+.image-wrapper {
+    width: 30%;
+    height: 200px;
+    margin: 10px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.main_content {
+    width: 100%;
+  padding: 20px;
+  margin-top: 25px;
+  overflow: scroll;
+  height: calc(100vh - 90px);
+}
+.post-img{
+  height: 400px;
+  width: 100%;
+}
+.post-list{
+  justify-content: flex-start;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.post-list img{
+  height: 200px;
+  width: 100%;
+}
+.post-list video{
+  height: 200px;
+  width: 100%;
+  margin: 3px;
+}
+.post-area{
+  height: 200px;
+  width: 30%;
+}
+
+.myVideo::-webkit-media-controls {
+  display: none !important;
+}
+
+.myVideo::-webkit-media-controls-enclosure {
+  width: 50px; /* Set the width you want for the play button */
+  height: 50px; /* Set the height you want for the play button */
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust as needed */
+  border-radius: 50%; /* Makes the button round */
+}
+
+.myVideo::-webkit-media-controls-play-button {
+  display: -webkit-inline-box !important;
+  width: 100%;
+  height: 100%;
+}
+
+.myVideo::-webkit-media-controls-play-button:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Adjust as needed */
+}
+
+.post{
+height: 200px;
+  width: 30%;
+  margin: 3px;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 100%;
+}
+
+.edit-button, .delete-button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    display: none;
+     width: 40%;
+     background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+  border-radius: 5px;
+}
+
+.edit-button {
+    /* background-color: yellow; */
+    color: green;
+    font-weight: bolder;
+    filter: brightness(300%);
+    /* filter: contrast(100%); */
+}
+
+.delete-button {
+  /* background-color: red; */
+    color: red;
+    font-weight: bolder;
+    /* filter: contrast(300%); */
+    filter: brightness(300%);
+}
+.image-wrapper:hover .edit-button,
+.image-wrapper:hover .delete-button {
+    display: inline-block;
+}
+.image-wrapper:hover img {
+    filter: blur(1px); /* Adjust the amount of blur as per your preference */
+  /*  filter: contrast(50%);*/
+}
+
+
+
+.image-wrapper:hover img:hover {
+    filter: blur(0px); /* Remove blur when hovering directly over the image */
+    position: relative;
+    filter:drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
+}
+.edit-button:hover{
+    font-size: large;
+    box-shadow: 0 0 10px rgb(0, 255, 21);
+    background-color: white;
+    /* filter:drop-shadow(0px 0px 8px rgb(0, 255, 21)); */
+
+}
+.delete-button:hover {
+    font-size: large;
+    box-shadow: 0 0 10px rgb(249, 0, 0);
+    background-color: white;
+}

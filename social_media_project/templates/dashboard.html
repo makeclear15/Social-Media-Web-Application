@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+    <link rel="stylesheet" href="{% static '/css/res_dashboard.css' %}">  <!-- Response Css -->
+     <!-- Icon Css-->
+    <title>Dashboard</title>
+    <script src="{% static '/js/dashboard.js' %}" type="application/javascript"></script>
+    <script src="{% static '/js/res_dashboard.js' %}" type="application/javascript"></script> <!-- Response Javascript -->
+
+
+  </head>
+  <body onload="LoadPost()">
+
+    <header class="top-header">
+      <div id="top-header-1">
+      <img src="{% static 'images/logo.png' %}" alt="LOGO" width="200px" height="50px">
+      <div class="search-bar">
+        <input type="text" placeholder="Search" />
+      </div>
+      <div class="user_post_detail" onclick="switchForm('user-profile')">
+        <img class="user_profile" 
+        src="https://resize.indiatvnews.com/en/centered/newbucket/1200_675/2023/07/instagram-freepik-1688884010.jpg">
+        <div class="user-name"><p>{{ user.username }}</p></div>
+      </div>
+    </div>
+    <div id="nav-icon">
+      <i class="bi bi-list" onclick="shownav()"></i>
+    </div>
+    </header>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <ul>
+          <li onclick="switchForm('display-post')"> <i class="bi bi-house-door-fill"></i>Home</li>
+          <li onclick="switchForm('add-post')"> <i class="bi bi-plus-circle-fill"></i>Add Post</li>
+          <li onclick="switchForm('settings')"> <i class="bi bi-gear-fill"></i>Settings</li>
+<!--          <li onclick="switchForm('manage-post')"> <i class="bi bi-grid-1x2-fill"></i>Manage Post</li>-->
+
+          <a href="manage_post{{user.user_id}}"> <li> <i class="bi bi-grid-1x2-fill"></i>Manage Post</li></a>
+        </ul>
+        <ul>
+          <a href="login">
+          <li class="logout-btn"> <i class="bi bi-box-arrow-left"></i>Logout</li></a>
+        </ul>
+      </aside>
+      <div class="main_content" id="post-area">
+<!--        <div class="post">-->
+<!--          -->
+<!--        <div class="user_post_detail">-->
+<!--          <img class="user_profile" -->
+<!--          src="https://resize.indiatvnews.com/en/centered/newbucket/1200_675/2023/07/instagram-freepik-1688884010.jpg">-->
+<!--          <div><p>Dinesh</p></div>-->
+<!--        </div>-->
+<!--          <img class="post-img"-->
+<!--            src="https://resize.indiatvnews.com/en/centered/newbucket/1200_675/2023/07/instagram-freepik-1688884010.jpg"-->
+<!--            alt="Post Image"-->
+<!--          />-->
+<!--          <div class="post-info">-->
+<!--            <div class="interaction">-->
+<!--              &lt;!&ndash; <div> &ndash;&gt;-->
+<!--              <i class="bi bi-heart">&nbsp;100</i>-->
+<!--              <i class="bi bi-chat-left-dots">&nbsp;99</i>-->
+<!--              <i class="bi bi-send">&nbsp;98</i>-->
+<!--            &lt;!&ndash; </div>-->
+<!--              <div> &ndash;&gt;-->
+<!--                <a href="images/img1.jpg" download="POST">-->
+<!--                <i class="bi bi-arrow-down-circle"></i>-->
+<!--              </a>-->
+<!--              &lt;!&ndash; </div> &ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="post-text">-->
+<!--              Instagram is a popular Social media in recent years.-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--          post_id-->
+<!--user_id-->
+<!--content-->
+<!--post_date-->
+<!--media_type-->
+<!--media_url-->
+<!--likes_count-->
+<!--comments_count-->
+<!--shares_count-->
+<!--downloads_count-->
+<!--post_title-->
+<!--user_name-->
+
+              {% for post in Posts %}
+          <div class="post">
+
+        <div class="user_post_detail">
+          <img class="user_profile"
+          src="/media/{{post.media_url}}">
+          <div><p>{{post.user_name}}</p></div>
+        </div>
+          <img class="post-img"
+            src="/media/{{post.media_url}}"
+            alt="Post Image"
+          />
+          <div class="post-info">
+            <div class="interaction">
+              <!-- <div> -->
+              <i class="bi bi-heart">&nbsp;{{post.likes_count}}</i>
+              <i class="bi bi-chat-left-dots">&nbsp;{{post.comments_count}}</i>
+              <i class="bi bi-send">&nbsp;{{post.shares_count}}</i>
+            <!-- </d
+              <div> -->
+                <a href="/media/{{post.media_url}}" download="POST">
+                <i class="bi bi-arrow-down-circle">&nbsp;{{post.downloads_count}}</i>
+              </a>
+              <!-- </div> -->
+            </div>
+            <div class="post-text">
+               <b> {{post.post_title}}</b><br>
+              {{post.content}}
+            </div>
+          </div>
+        </div>
+
+              {% endfor %}
+    </div>
+    <div class="main_content" id="manage-post">
+    <div class="post-list">
+      <!-- <img src="images/img1.jpg" alt="post"> -->
+      <!-- <img class="user-post-img"
+            src="https://resize.indiatvnews.com/en/centered/newbucket/1200_675/2023/07/instagram-freepik-1688884010.jpg"
+            alt="Post Image"
+          /> -->
+      <!-- <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post">
+      <img src="images/img1.jpg" alt="post"> -->
+
+    </div>
+    </div>
+
+    <div class="main_content" id="add-post">
+      <h2>Add a Post</h2>
+      <form id="postForm" action="add_post/{{user.user_id}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="postTitle">Post Title:</label>
+          <input type="text" id="postTitle" name="postTitle" required>
+  
+          <label for="postDescription">Post Description:</label>
+          <textarea id="postDescription" name="postDescription" rows="4" required></textarea>
+  
+          <label for="postFile_url">Upload Image/Video:</label>
+          <input type="file" id="postFile_url" name="postFile_url" accept="image/*,video/*" onchange="previewFile()">
+  
+          <div id="filePreview"></div>
+  
+          <input type="submit" value="Upload Post">
+      </form>
+  </div>
+
+
+
+  <div class="main_content" id="user-profile">
+    <div class="profile-container">
+      <img class="cover-image" src="media/{{Profiles.cover_photo_url}}" alt="Cover Image">
+      <img class="profile-picture" src="media/{{Profiles.profile_picture_url}}" alt="Profile Picture">
+      <div class="no-margin padding_25_margin_-65"><p class="no-margin"><strong>{{user.username}}</strong></p>
+        <p class="no-margin"><small>{{Profiles.full_name}}</small></p>
+        <p class="no-margin">{{Profiles.bio}}</p>
+        <input class="button-12" type="button" onclick="user_details_form('Show_form')" value="Edit Profile">
+      </div>
+      <div class="counts">
+        <div class="count-box" onclick="showFollowing()">
+          <div class="count-label">Following</div>
+          <div class="count">500</div>
+        </div>
+        <div class="count-box" onclick="showFollowers()">
+          <div class="count-label">Followers</div>
+          <div class="count">1000</div>
+        </div>
+        <div class="count-box" onclick="switchForm('manage-post')">
+          <div class="count-label">Posts</div>
+          <div class="count">200</div>
+        </div>
+      </div>
+      
+      <div id="following-list" class="list hidden">
+        <div class="following-item">
+          <img class="following-profile" src="images/img1.jpg" alt="Profile Picture">
+          <div class="following-id">Following 1</div>
+        </div>
+        <div class="following-item">
+          <img class="following-profile" src="images/img1.jpg" alt="Profile Picture">
+          <div class="following-id">Following 2</div>
+        </div>
+      </div>
+      
+      <div id="followers-list" class="list hidden">
+        
+        <div class="follower-item">
+            <img class="follower-profile" src="images/img1.jpg" alt="Profile Picture">
+          <div class="follower-id">Follower 1</div>
+        </div>
+        <div class="follower-item">
+          <img class="follower-profile" src="images/img1.jpg" alt="Profile Picture">
+          <div class="follower-id">Follower 2</div>
+        </div>
+      </div>
+    </div>
+    <form method="post" id="user_details_form" class="form-popup hidden" enctype="multipart/form-data" action="save_profile/{{user.user_id}}/">
+      {% csrf_token %}
+      <label for="user_id">User ID:</label>
+      <input type="number" id="user_id" name="user_id" readonly value="{{user.user_id}}">
+
+      <label for="full_name">Full Name:</label>
+      <input type="text" id="full_name" name="full_name" value="{{Profiles.full_name}}" required>
+
+
+      <label for="bio">Bio:</label>
+      <input type="text" id="bio" name="bio" value="{{Profiles.bio}}">
+
+      <label for="profile_picture_url">Profile Picture URL:</label>
+      <input type="file" id="profile_picture_url" accept="image/*" name="profile_picture_url" value="{{Profiles.profile_picture_url}}">
+
+      <label for="cover_photo_url">Cover Photo URL:</label>
+      <input type="file" id="cover_photo_url" accept="image/*" name="cover_photo_url" value="{{Profiles.cover_photo_url}}">
+
+      <label for="date_of_birth">Date of Birth:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" value="{{ Profiles.birthdate|date:'Y-m-d' }}" required>
+
+      <div class="gender-group">
+          <label>Gender:</label>
+          <input type="radio" id="male" name="gender" value="male" required>
+          <label for="male">Male</label>
+
+          <input type="radio" id="female" name="gender" value="female" required>
+          <label for="female">Female</label>
+
+          <input type="radio" id="other" name="gender" value="other" required>
+          <label for="other">Other</label>
+      </div>
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" value="{{Profiles.location}}">
+
+      <input type="submit" value="Save">
+      <input type="button" class="button-normal" value="Cancel" onclick="user_details_form('Hide_form')">
+  </form>
+
+
+  </div>
+  
+  <div id="notification">
+    <div id="notificationContainer">
+      <div id="notificationHeader">Notifications</div>
+      <div id="notificationList"></div>
+    </div>
+    <div id="friendsSuggestionContainer">
+      <div id="friendsSuggestionHeader">Friend Suggestions</div>
+      <div id="friendSuggestionList"></div>
+    </div>
+  </div>
+  </div>
+ 
+  </body>
+
+
+</html>

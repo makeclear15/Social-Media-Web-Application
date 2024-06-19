@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/css/search_profile.css' %}" />
+</head>
+<body>
+
+<div class="main_content" id="search-profile">
+<div id="user-list">
+    {% if Profiles %}
+    {% for profile in Profiles %}
+            {% for user in Users %}
+                {% if profile.user_id == user.user_id %}
+                    <div class="user-profile">
+                        <img src="../media/{{ profile.profile_picture_url }}" alt="Profile Picture">
+                        <div class="user-details">
+                            <h3>@ {{ user.username }}</h3>
+                            <b>{{ profile.full_name }}</b>
+                            <p>{{ profile.bio }}</p>
+                        </div>
+                        {% if user.username in follows %}
+                            <a href="/unfollow/{{ user.username }}_{{ user.user_id }}"><button class="unfollow-button">Unfollow</button></a>
+                        {% else %}
+                            <a href="/follow/{{ user.username }}_{{ user.user_id }}"><button class="follow-button">Follow</button></a>
+                        {% endif %}
+<!--                        <a href="/follow/{{user.username}}_{{user.user_id}}"> <button class="follow-button">Follow</button></a>-->
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+
+                    <div>
+                        <h2>No Profiles found</h2>
+                    </div>
+    {% endif %}
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Post</title>
+    <link rel="stylesheet" href="{% static '/css/manage_post.css' %}" />
+</head>
+<body>
+<div class="main_content" id="manage-post">
+    <a href="logins{{user_id}}">Back to Home</a>
+    <h1 style="text-align: center;">User Post</h1>
+    <div class="post-list">
+    {% if Posts %}
+    {% for post in Posts %}
+<!--        <div class="post-area">-->
+        {% if post.media_type == 'Video' %}
+<!--           <img src="../media/{{post.media_url}}" alt="post">-->
+
+        <video src="../media/{{post.media_url}}" controls>
+        {% endif %}
+<!--            </div>-->
+
+<!--        {% if post.media_type == 'Image' %}-->
+<!--        <img src="../media/{{post.media_url}}">-->
+<!--        {% elif post.media_type == 'Video' %}-->
+<!--        <videos src="../media/{{post.media_url}}" controls>-->
+<!--        Your browser does not support the videos tag.-->
+<!--        </videos>-->
+<!--        {% endif %}-->
+    {% endfor %}
+    {% else %}
+    <p>No posts found </p>
+    {% endif %}
+
+    </div>
+</div>
+</body>
+</html>

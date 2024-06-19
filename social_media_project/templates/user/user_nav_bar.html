@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/nav_bar.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/user_header.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/res_dashboard.css' %}" />
+    <script src="{% static '/js/search_profile.js' %}" type="application/javascript"></script>
+    <title>User Navigation</title>
+</head>
+<body>
+  <header class="top-header">
+      <div id="top-header-1">
+<!--          <h2 style="color:white; margin:0px;">Welcome {{ user.username }}</h2>-->
+      <img src="{% static 'images/logo2.png' %}" alt="LOGO" width="200px" height="50px">
+      <div class="search-bar">
+        <input id="search_bar" type="text" placeholder="Search User Profile" onchange="search_profile()" />
+            <a id="search_btn" href="#"> </a><!-- Search Button-->
+
+<!--      <img src="{% static 'images/logo2.png' %}" alt="LOGO" width="200px" height="50px">-->
+      </div>
+          <a id="user_prof_link" href="/edit_profile/{{ user.user_id}}">
+      <div class="user_post_detail" >
+        <img class="user_profile"
+            {% if Profiles.profile_picture_url %}
+                src="../media/{{Profiles.profile_picture_url}}"
+             {% else %}
+                src="https://png.pngtree.com/png-clipart/20230913/original/pngtree-profile-picture-vector-png-image_11063301.png"
+             {% endif %}
+             >
+        <div class="user-name"><p>{{ user.username }}</p></div>
+      </div>
+          </a>
+    </div>
+    <div id="nav-icon">
+      <i class="bi bi-list" onclick="shownav()"></i>
+    </div>
+    </header>
+      <aside class="sidebar" style="padding-top: 70px;">
+        <ul>
+            <a href="/user_post_new/{{user.user_id}}"> <li> <i class="bi bi-house-door-fill"></i>Home</li></a>
+            <a href="/add_post/{{user.user_id}}"><li> <i class="bi bi-plus-circle-fill"></i>Add Post</li></a>
+            <a href="/edit_profile/{{user.user_id}}"><li> <i class="bi bi-gear-fill"></i> Profile</li></a>
+<!--            <a href="#"><li> <i class="bi bi-gear-fill"></i>Settings</li></a>-->
+          <a href="/manage_post/{{user.user_id}}"> <li> <i class="bi bi-grid-1x2-fill"></i>Manage Post</li></a>
+        </ul>
+        <ul>
+          <a href="/user_logout">
+          <li class="logout-btn"> <i class="bi bi-box-arrow-left"></i>Logout</li></a>
+        </ul>
+      </aside>
+
+</body>
+</html>

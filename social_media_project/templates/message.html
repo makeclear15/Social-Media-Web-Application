@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static '/css/message.css' %}" type="text/css" />
+  <script src="message.js" type="application/javascript"></script>
+  <title>Message Page</title>
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    
+  <script src="{% static '/js/message.js' %}"></script>
+</head>
+<body onload="AddUser()">
+  <div class="container">
+    <div class="leftside">
+      <h2>Message</h2>
+      <div id="users">
+        <div class="ind-user" onclick="LoadMsg('Username 1')">
+        <h4 class="user_name">Username 1</h4>
+        <p>Hello this is Dinesh</p>
+      </div>
+      </div>
+    </div>
+    <div class="rightside" id="rightSide">
+      <div id="header">
+          <h2 id="Username">Dinesh </h2>
+          <i class="bi bi-three-dots-vertical"></i>
+      </div>
+      <div id="main">
+        <div class="msg-area">
+          <div class="msg sender"><p>Hello This is Dinesh<span>10:15</span></p></div>
+          <div class="msg receiver"><p>Hello This is Anu<span>10:15</span></p></div>
+          <div class="msg receiver"><p>How are you<span>10:16</span></p></div>
+          <div class="msg sender"><p>I am Fine<span>10:16</span></p></div>
+          <div class="msg sender"><p>What about You<span>10:16</span></p></div>
+
+          
+          <div class="msg sender"><p>Hello This is Dinesh<span>10:15</span></p></div>
+          <div class="msg receiver"><p>Hello This is Anu<span>10:15</span></p></div>
+          <div class="msg receiver"><p>How are you<span>10:16</span></p></div>
+          <div class="msg sender"><p>I am Fine<span>10:16</span></p></div>
+          <div class="msg sender"><p>What about You<span>10:16</span></p></div>
+
+          <div class="msg sender"><p>Hello This is Dinesh<span>10:15</span></p></div>
+          <div class="msg receiver"><p>Hello This is Anu<span>10:15</span></p></div>
+          <div class="msg receiver"><p>How are you<span>10:16</span></p></div>
+          <div class="msg sender"><p>I am Fine<span>10:16</span></p></div>
+          <div class="msg sender"><p>What about You<span>10:16</span></p></div>
+          
+
+        </div>
+        <div class="msg-send-btn">
+          <input id="user-msg" name="user-msg" type="text"  placeholder="Message here"/>
+          <i class="bi bi-arrow-right-circle-fill"></i>
+        </div>
+        </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

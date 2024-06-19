@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Post</title>
+    <link rel="stylesheet" href="{% static '/css/manage_post.css' %}" />
+   <link rel="stylesheet" href="{% static '/css/add_user.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // Function to comment a post
+function commentPost(postId) {
+    $.ajax({
+        type: 'GET',
+        url: '/get_comment',
+        data: { post_id: postId },
+        success: function(response) {
+            // Handle success response
+            console.log('Comments successfully fetched.');
+            console.log(response);
+
+            // Clear any existing comments
+            $('.comments').empty();
+            if (response.comments.length === 0) {
+        $('.comments').append('<h2>No comments</h2>');
+    } else {
+            // Iterate over each comment and append it to the comments container
+
+            $('.comments').append('<h2>Comments</h2>');
+            $.each(response.comments, function(index, comment) {
+                var commentHtml = '<div class="comment">';
+                commentHtml += '<div class="comment-content">';
+                commentHtml += '<h5 style="margin: auto;">@' + comment.username + '</h5>';
+                commentHtml += '<p style="font-size: small;">' + comment.content + '</p>';
+                commentHtml += '</div>';
+                commentHtml += '</div>';
+                $('.comments').append(commentHtml);
+            });
+            }
+        },
+        error: function(xhr, status, error) {
+            // Handle error response if needed
+            console.error('Error fetching comments:', error);
+        }
+    });
+}
+
+// Click event handler for the comment link
+$(document).on('click', '.comment-link', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    var postId = $(this).data('post-id'); // Get post ID from data attribute
+    commentPost(postId); // Call the function to fetch comments
+    show_user_form();
+});
+
+    // Function to show user form
+function show_user_form() {
+    // Get the comment link elements
+    var showFormButtons = document.getElementsByClassName("comment-link");
+
+    // Get the modal container element
+    var modalContainer = document.getElementById("modalContainer");
+
+    // Attach click event listener to each comment link
+    for (var i = 0; i < showFormButtons.length; i++) {
+        showFormButtons[i].onclick = function() {
+            modalContainer.style.display = "block";
+        }
+    }
+
+    // Close the modal when the close button is clicked
+    document.getElementsByClassName("close")[0].onclick = function() {
+        modalContainer.style.display = "none";
+    }
+
+    // Close the modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == modalContainer) {
+            modalContainer.style.display = "none";
+        }
+    }
+}
+</script>
+<body>
+<div class="main_content" id="manage-post">
+    <a href="logins{{user_id}}">Back to Home</a>
+    <h1 style="text-align: center;">User Post</h1>
+    <div class="post-list">
+    {% if Posts %}
+        {% for post in Posts %}
+         <div class="image-wrapper">
+              {% if post.media_type == 'Image' %}
+            <img src="../media/{{post.media_url}}" alt="Image 1">
+             {% elif post.media_type == 'Video' %}
+              <video class="myVideo" src="../media/{{post.media_url}}" controls>-->
+            Your browser does not support the video tag.
+             </video>
+                 {% endif %}
+              <div class="button-container">
+                <a href="/edit_post/{{post.post_id}}"><button class="edit-button">Edit</button></a>
+                  <a href="/delete_post/{{post.post_id}}"><button class="delete-button">Delete</button></a>
+            </div>
+             <div style="display:flex; justify-content: space-around;">
+             <div style="text-align: left;">{{post.likes_count}} Likes</div>
+                 <a style="color: black;" href="#"  class="comment-link" data-post-id={{post.post_id}}>
+
+             <div style="text-align: left;">{{post.comments_count}} Comments</div>
+                 </a>
+             </div>
+             </div>
+         {% endfor %}
+    {% else %}
+    <p>No posts found </p>
+    {% endif %}
+
+    </div>
+</div>
+<div id="modalContainer" class="modal-container" >
+  <div id="signupModal" class="modal" style="width:40%; height:70%">
+    <span class="close">&times;</span>
+      <div class="comments">
+        <div class="comment">
+            <div class="comment-content">
+<!--               Comment Content -->
+            </div>
+        </div>
+  </div>
+</div>
+
+</body>
+</html>

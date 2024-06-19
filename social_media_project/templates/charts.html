@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'admin_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chart</title>
+
+    <link rel="stylesheet" href="{% static '/css/display_table.css' %}">
+</head>
+<body>
+<div class="main_content">
+<div style="display: flex;
+    justify-content: space-around;">
+<div>
+    <label for="chart-type">Select Chart Type:</label>
+    <select id="chart-type" class="sort-select">
+
+        <option value="pie">Pie Chart</option>
+        <option value="line">Line Chart</option>
+        <option value="bar">Bar Chart</option>
+        <option value="doughnut">Doughnut Chart</option>
+    </select>
+</div>
+
+<div>
+    <label for="data-type">Select Data Type:</label>
+    <select id="data-type" class="sort-select">
+        <option value="no_of_posts" selected>Number of Posts</option>
+        <option value="no_of_followers">Number of Followers</option>
+        <option value="no_of_following">Number of Following</option>
+    </select>
+</div>
+</div>
+<div id="container" >
+    <canvas id="pie-chart"></canvas>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+    var data = {{ data|safe }};
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: data['no_of_posts'], // Set default data to no_of_posts
+                backgroundColor: [
+    'rgba(139, 0, 0, 0.2)',        // Dark Red
+    'rgba(0, 0, 139, 0.2)',        // Dark Blue
+    'rgba(128, 128, 0, 0.2)',      // Dark Olive
+    'rgba(0, 100, 0, 0.2)',        // Dark Green
+    'rgba(139, 0, 139, 0.2)',      // Dark Purple
+    'rgba(128, 0, 0, 0.2)'         // Dark Maroon
+],
+
+                label: '' // Set default label
+            }],
+            labels: data['full_name'] // Initial labels
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    gridLines: {
+                        display: false // Hide grid lines on the y-axis
+                    }
+                }]
+            }
+        }
+    };
+    window.onload = function() {
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+
+        // Add event listener to handle chart type change
+        document.getElementById('chart-type').addEventListener('change', function() {
+            var selectedType = this.value;
+            config.type = selectedType;
+            window.myPie.destroy(); // Destroy previous chart
+            window.myPie = new Chart(ctx, config); // Recreate chart with new type
+        });
+
+        // Add event listener to handle data type change
+        document.getElementById('data-type').addEventListener('change', function() {
+            var selectedOption = this.value;
+            config.data.datasets[0].data = data[selectedOption]; // Update data based on selected option
+            config.data.datasets[0].label = selectedOption === 'no_of_posts' ? 'Number of Posts' : selectedOption.replace(/_/g, ' ').toUpperCase(); // Update label based on selected option
+            window.myPie.update(); // Update chart with new data and label
+        });
+
+        // Add event listener for hover to display data for bar chart
+        document.getElementById('pie-chart').addEventListener('mousemove', function(evt) {
+            var activePoints = window.myPie.getElementAtEvent(evt);
+            if (activePoints.length > 0) {
+                var idx = activePoints[0]._index;
+                var dataValue = window.myPie.data.datasets[0].data[idx];
+                var label = window.myPie.data.labels[idx];
+                window.myPie.options.tooltips.callbacks.title = function(tooltipItem, data) {
+                    return label;
+                };
+                window.myPie.options.tooltips.callbacks.label = function(tooltipItem, data) {
+                    return 'Number : ' + dataValue;
+                };
+                window.myPie.update();
+            }
+        });
+    };
+</script>
+</body>
+</html>

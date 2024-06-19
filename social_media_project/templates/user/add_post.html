@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+    <title>Title</title>
+    <script>
+
+function previewFile() {
+  var preview = document.getElementById('filePreview');
+  var fileInput = document.getElementById('postFile_url');
+  var media_type = document.getElementById('media_type');
+  var file = fileInput.files[0];
+
+
+  if (file) {
+      preview.innerHTML = ''; // Clear previous preview
+
+      var fileType = file.type.split('/')[0]; // Get file type (image or video)
+
+      if (fileType === 'image') {
+          media_type.value = 'Image';
+          var img = document.createElement('img');
+          img.setAttribute('height', '400px');
+          img.setAttribute('width', '100%');
+          img.src = URL.createObjectURL(file);
+          preview.appendChild(img);
+          media_type
+      } else if (fileType === 'video') {
+          media_type.value = 'Video';
+          var video = document.createElement('video');
+          video.setAttribute('height', '20%');
+          video.setAttribute('width', '100%');
+          video.src = URL.createObjectURL(file);
+          video.controls = true;
+          preview.appendChild(video);
+      }
+
+      preview.style.display = 'block';
+  } else {
+      preview.style.display = 'none';
+  }
+}
+
+    </script>
+</head>
+<body>
+
+    <div class="main_content" id="add-post">
+      <h2>Add a Post</h2>
+      <form id="postForm" action="/add_posts/{{user.user_id}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="postTitle">Post Title:</label>
+          <input type="text" id="postTitle" name="postTitle" required>
+
+          <label for="postDescription">Post Description:</label>
+          <textarea id="postDescription" name="postDescription" rows="4" required></textarea>
+
+          <label for="postFile_url">Upload Image/Video:</label>
+          <input type="file" id="postFile_url" name="postFile_url" accept="image/*,video/*" onchange="previewFile()">
+
+          <input type="text" id="media_type" name="media_type" value="" placeholder="Image/Video" readonly>
+          <div id="filePreview"></div><br>
+
+          <input type="submit" value="Upload Post">
+      </form>
+
+  </div>
+<!--          <div id="notification">-->
+<!--    <div id="notificationContainer">-->
+<!--      <div id="notificationHeader">Notifications</div>-->
+<!--      <div id="notificationList"></div>-->
+<!--    </div>-->
+<!--    <div id="friendsSuggestionContainer">-->
+<!--      <div id="friendsSuggestionHeader">Friend Suggestions</div>-->
+<!--      <div id="friendSuggestionList"></div>-->
+<!--    </div>-->
+<!--  </div>-->
+</body>
+</html>

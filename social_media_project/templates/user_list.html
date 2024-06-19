@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'admin_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+   <link rel="stylesheet" href="{% static '/css/display_table.css' %}">
+   <link rel="stylesheet" href="{% static '/css/add_user.css' %}">
+    <script src="{% static '/js/admin_fun.js' %}" type="application/javascript"></script>
+</head>
+<body>
+    <div class="main_content" id="user_list">
+        <div class="table_options">
+          <div class="user-button">
+            <button class="add-button" id="add_user" onclick="show_user_form()">Add User</button>
+          </div>
+          <div class="sort-by">
+            <select class="sort-select" id="user_sort" onchange="sort_user()">
+              <option value="">Sort By</option>
+              <option value="user_id">User ID</option>
+              <option value="email">Email</option>
+              <option value="phone_no">Phone Number</option>
+              <option value="reg_date">Register Date</option>
+              <option value="last_login_date">Last Login Date</option>
+            </select>
+              <a id="sort_btn" href="#"></a>
+          </div>
+           <div>
+            <input class="search-input" id="search_bar"  type="text" placeholder="Search by Username" onchange="search_user()">
+               <a id="search_btn" href="#"> </a><!-- Search Button-->
+          </div>
+
+      </div>
+        <table id="userTable" class="table">
+          <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Password</th>
+            <th>Registration Date</th>
+            <th>Last Login Date</th>
+            <th colspan="2">Options</th>
+        </tr>
+        </thead>
+          <tbody>
+          {% for user in Users %}
+          <tr>
+            <td style="text-align: center;">{{user.user_id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone_number}}</td>
+            <td>{{user.password}}</td>
+            <td>{{user.registration_date}}</td>
+            <td>{{user.last_login_date}}</td>
+            <td><a href="edit/{{user.user_id}}"><button>Update</button></a></td>
+            <td><a href="delete/{{user.user_id}}"> <button>Delete</button></a></td>
+          </tr>
+          {% endfor %}
+          </tbody>
+    </table>
+
+<!--      <form id="signupForm" method="post" action="signup">-->
+<!--        {% csrf_token %}-->
+<!--        <div class="input-field">-->
+<!--          <label for="signupUsername">Username:</label>-->
+<!--          <input type="text" id="signupUsername" name="signupUsername" required>-->
+<!--        </div>-->
+<!--        <div class="input-field">-->
+<!--          <label for="signupPassword">Password:</label>-->
+<!--          <input type="password" id="signupPassword" name="signupPassword" required>-->
+<!--        </div>-->
+<!--        <div class="input-field">-->
+<!--          <label for="confirmPassword">Confirm Password:</label>-->
+<!--          <input type="password" id="confirmPassword" name="confirmPassword" required>-->
+<!--        </div>-->
+<!--        <div class="input-field">-->
+<!--          <label for="mobile">Mobile:</label>-->
+<!--          <input type="tel" id="mobile" name="mobile" required>-->
+<!--        </div>-->
+<!--        <div class="input-field">-->
+<!--          <label for="email">Email:</label>-->
+<!--          <input type="email" id="email" name="email" required>-->
+<!--        </div>-->
+<!--        <button type="submit">Sign Up</button>-->
+<!--      </form>-->
+
+<!--    <button id="showFormButton" >Show Sign Up Form</button>-->
+
+<div id="modalContainer" class="modal-container">
+  <div id="signupModal" class="modal">
+    <span class="close">&times;</span>
+    <form id="signupForm" method="post" action="/create_user">
+        {% csrf_token %}
+      <div class="input-field">
+        <label for="signupUsername">Username:</label>
+        <input type="text" id="signupUsername" name="signupUsername" required>
+      </div>
+      <div class="input-field">
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" name="signupPassword" required>
+      </div>
+      <div class="input-field">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+      </div>
+      <div class="input-field">
+        <label for="mobile">Mobile:</label>
+        <input type="tel" id="mobile" name="mobile" required>
+      </div>
+      <div class="input-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+      </div>
+</body>
+</html>

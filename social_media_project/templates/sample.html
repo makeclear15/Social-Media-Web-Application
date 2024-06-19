@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+
+<div class="main_content" id="post-area">
+    <!-- Posts will be displayed here -->
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Make AJAX request to fetch posts
+        $.ajax({
+            type: 'GET',
+            url: '/get_post/28', // URL mapped to the Django view
+            success: function (data) {
+                // Process the retrieved posts
+                var posts = data;
+
+                // Iterate through the posts and append HTML content
+                posts.forEach(function (post) {
+                    var html = `
+                        <div class="post">
+                            <div class="user_post_detail">
+                                <p>@${post.user_name}</p>
+                            </div>
+                            <img src="/media/${post.media_url}" alt="Post Image" class="post-img" />
+                            <div class="post-info">
+                                <div class="interaction">
+                                    <a href="/like_post?post_id=${post.post_id}" ><i class="bi bi-heart">&nbsp;${post.likes_count}</i></a>
+                                    <i class="bi bi-chat-left-dots">&nbsp;${post.comments_count}</i>
+                                    <i class="bi bi-send">&nbsp;${post.shares_count}</i>
+                                    <a href="/media/${post.media_url}" download="POST"><i class="bi bi-arrow-down-circle">&nbsp;${post.downloads_count}</i></a>
+                                </div>
+                                <div class="post-text">
+                                    <b>${post.post_title}</b><br>
+                                    ${post.content}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    // Append the post HTML to the post area
+                    $('#post-area').append(html);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+</script>
+ <div id="notification">
+    <div id="notificationContainer">
+      <div id="notificationHeader">Notifications</div>
+      <div id="notificationList"></div>
+    </div>
+    <div id="friendsSuggestionContainer">
+      <div id="friendsSuggestionHeader">Friend Suggestions</div>
+      <div id="friendSuggestionList"></div>
+    </div>
+  </div>
+</body>
+</html>

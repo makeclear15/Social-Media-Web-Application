@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/video.css' %}" />
+    <script src="{% static 'js/video.js' %}" type="application/javascript"></script>
+</head>
+<body>
+
+    <div class="main_content" id="edit-post">
+      <h2>Edit Post</h2>
+      <form id="postForm" action="/save_post/{{post.post_id}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {% if post.media_type == 'Image' %}
+          <img src="../media/{{post.media_url}}" height="400px;" width=" 100%">
+             {% elif post.media_type == 'Video' %}
+<!--              <video class="myVideo" src="../media/{{post.media_url}}" height="400px" width=" 100%"  controls>&ndash;&gt;-->
+<!--            Your browser does not support the video tag.-->
+<!--             </video>-->
+                      <div class="video-container">
+                <video id="myVideo" height="400px;" width="100%" controlsList="nodownload" controls>
+                  <source src="../media/{{post.media_url}}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <button id="playButton" class="play-button"></button>
+              </div>
+                 {% endif %}
+          <label for="postTitle">Post Title:</label>
+          <input type="text" id="postTitle" name="postTitle" value="{{post.post_title}}" required>
+
+          <label for="postDescription">Post Description:</label>
+          <textarea id="postDescription" name="postDescription"  rows="4" required>{{post.content}}</textarea>
+
+
+          <input type="text" id="media_type" name="media_type" value="" placeholder="Image/Video" readonly>
+        <br>
+
+          <input type="submit" value="Upload Edit">
+      </form>
+  </div>
+</body>
+</html>

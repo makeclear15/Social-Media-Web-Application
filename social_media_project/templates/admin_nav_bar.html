@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/nav_bar.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <ul>
+        <a href="/user_list"><li> <i class="bi bi-house-door-fill"></i>Users</li></a>
+        <a href="/user_profile"> <li> <i class="bi bi-house-door-fill"></i>User Profile</li></a>
+<!--        <a href="/all_user_post"><li> <i class="bi bi-plus-circle-fill"></i>Group</li></a>-->
+        <a href="/all_user_post"><li> <i class="bi bi-gear-fill"></i>Posts</li></a>
+        <a href="/all_report_post"><li> <i class="bi bi-gear-fill"></i>Reported Posts</li></a>
+        <a href="/charts"><li> <i class="bi bi-gear-fill"></i>Chart Representation</li></a>
+        </ul>
+        <ul>
+          <a href="/logout">
+          <li class="logout-btn"> <i class="bi bi-box-arrow-left"></i>Logout</li></a>
+        </ul>
+      </aside>
+</body>
+</html>

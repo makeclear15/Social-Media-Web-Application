@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'admin_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static '/css/display_table.css' %}">
+    <script src="{% static '/js/admin_fun.js' %}" type="application/javascript"></script>
+</head>
+<body>
+    <div class="main_content" id="user_profile_list">
+        <div class="table_options">
+          <div class="sort-by">
+            <select id="user_prof" class="sort-select" onchange="sort_profile()">
+              <option value="">Sort By</option>
+              <option value="profile_id">Profile ID</option>
+              <option value="user_id">User ID</option>
+              <option value="bio">Bio</option>
+              <option value="full_name">Full Name</option>
+              <option value="birthdate">Birthdate</option>
+                <option value="gender">Gender</option>
+                <option value="location">Location</option>
+              <option value="created_at">Created At</option>
+            </select>
+                <a id="sort_btn1" href="#"></a>
+          </div>
+           <div>
+               <input class="search-input" id="search_bar"  type="text" placeholder="Search by Fullname" onchange="search_profile()">
+               <a id="search_btn" href="#"> </a><!-- Search Button-->
+          </div>
+
+      </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Profile ID</th>
+              <th>User ID</th>
+              <th>Full Name</th>
+              <th>Bio</th>
+              <th>Profile Picture</th>
+              <th>Cover Photo</th>
+              <th>Birthdate</th>
+              <th>Gender</th>
+              <th>Location</th>
+              <th>Created At</th>
+              <th colspan="2">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+           {% for profile in Profiles %}
+              <tr>
+                <td style="text-align: center;">{{ profile.profile_id }}</td>
+                <td>{{ profile.user_id }}</td>
+                <td>{{ profile.full_name }}</td>
+                <td>{{ profile.bio }}</td>
+                <td><img class="profile-picture" src="../media/{{ profile.profile_picture_url }}" alt="Profile Picture"></td>
+                <td><img class="cover-photo" src="../media/{{ profile.cover_photo_url }}" alt="Cover Photo"></td>
+                <td>{{ profile.birthdate }}</td>
+                <td>{{ profile.gender }}</td>
+                <td>{{ profile.location }}</td>
+                <td>{{ profile.created_at }}</td>
+                <td><a href="editprof/{{profile.profile_id}}"><button>Update</button></a></td>
+                <td><a href="deleteprof/{{profile.profile_id}}"><button>Delete</button></a></td>
+              </tr>
+            {% endfor %}
+<!--            <tr>-->
+<!--              <td style="text-align: center;">1</td>-->
+<!--              <td>123</td>-->
+<!--              <td>John Wick</td>-->
+<!--              <td>Software Engineer</td>-->
+<!--              <td><img class="profile-picture" src="images/img3.jpg" alt="Profile Picture"></td>-->
+<!--              <td><img class="cover-photo" src="images/img3.jpg" alt="Cover Photo"></td>-->
+<!--              <td>1990-01-01</td>-->
+<!--              <td>Male</td>-->
+<!--              <td>New York</td>-->
+<!--              <td>2021-06-01</td>-->
+<!--              <td><button>Update</button><button>Delete</button></td>-->
+<!--            </tr>-->
+          </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

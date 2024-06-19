@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'admin_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static '/css/display_user_posts.css' %}">
+    <link rel="stylesheet" href="{% static '/css/manage_post.css' %}" />
+</head>
+<body>
+<div class="dashboard">
+    <div class="main_content" id="user-profile">
+<!--        <div class="profile-container">-->
+<!--            <img class="cover-image" src="../media/{{Profiles.cover_photo_url}}" alt="Cover Image">-->
+<!--            <img class="profile-picture" src="../media/{{Profiles.profile_picture_url}}" alt="Profile Picture">-->
+<!--            <div class="no-margin padding_25_margin_-65">-->
+<!--                <p class="no-margin"><strong>{{Users.username}}</strong></p>-->
+<!--                <p class="no-margin"><small>{{Profiles.full_name}}</small></p>-->
+<!--                <p class="no-margin">{{Profiles.bio}}</p>-->
+<!--            </div>-->
+<!--            <div class="counts">-->
+<!--                <div class="count-box" id="load-following-btn">-->
+<!--                    <div class="count-label">Following</div>-->
+<!--                    <div class="count">{{Profiles.no_of_following}}</div>-->
+<!--                </div>-->
+<!--                <div class="count-box" id="load-followers-btn">-->
+<!--                    <div class="count-label">Followers</div>-->
+<!--                    <div class="count">{{Profiles.no_of_followers}}</div>-->
+<!--                </div>-->
+<!--                <div class="count-box" onclick="switchForm('manage-post')">-->
+<!--                    <div class="count-label">Posts</div>-->
+<!--                    <div class="count">{{Profiles.no_of_posts}}</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+    <div class="post-list">
+    {% if Posts %}
+        {% for post in Posts %}
+         <div class="image-wrapper">
+              {% if post.media_type == 'Image' %}
+            <img src="../media/{{post.media_url}}" alt="Image 1">
+             {% elif post.media_type == 'Video' %}
+              <video class="myVideo" src="../media/{{post.media_url}}" controls>-->
+            Your browser does not support the video tag.
+             </video>
+                 {% endif %}
+              <div class="button-container">
+                  <a href="/delete_post_report_admin/{{post.post_id}}"><button class="delete-button">Delete</button></a>
+            </div>
+             <div style="text-align: left;">{{post.likes_count}} Likes</div>
+             <div style="text-align: left;">{{post.report_count}} Report</div>
+             </div>
+         {% endfor %}
+    {% else %}
+    <p>No posts Reported </p>
+    {% endif %}
+
+    </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

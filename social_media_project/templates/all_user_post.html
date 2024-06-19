@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'admin_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static '/css/display_table.css' %}">
+    <script src="{% static '/js/admin_fun.js' %}" type="application/javascript"></script>
+</head>
+<body>
+    <div class="main_content" id="user_profile_list">
+        <div class="table_options">
+          <div class="sort-by">
+<!--            <select id="user_prof" class="sort-select" onchange="sort_profile()">-->
+<!--              <option value="">Sort By</option>-->
+<!--              <option value="user_id">User ID</option>-->
+<!--              <option value="bio">Bio</option>-->
+<!--              <option value="full_name">Full Name</option>-->
+<!--              <option value="birthdate">Birthdate</option>-->
+<!--                <option value="gender">Gender</option>-->
+<!--                <option value="location">Location</option>-->
+<!--              <option value="created_at">Created At</option>-->
+<!--            </select>-->
+<!--                <a id="sort_btn1" href="#"></a>-->
+          </div>
+           <div>
+               <input class="search-input" id="search_bar_user"  type="text" placeholder="Search by Username" onchange="search_profile_user()">
+               <a id="search_btn_user" href="#"> </a><!-- Search Button-->
+          </div>
+
+      </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>User Name</th>
+              <th>Full Name</th>
+              <th>No. Of Posts</th>
+              <th>Following</th>
+              <th>Followers</th>
+              <th colspan="2">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+         {% for profile, user in combined_data %}
+    <tr>
+        <td style="text-align: center;">{{ profile.user_id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ profile.full_name }}</td>
+        <td>{{ profile.no_of_posts }}</td>
+        <td>{{ profile.no_of_following }}</td>
+        <td>{{ profile.no_of_followers }}</td>
+        <td><a href="/view_user_posts/{{ profile.user_id }}"><button>View</button></a></td>
+    </tr>
+        {% endfor %}
+
+
+          </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

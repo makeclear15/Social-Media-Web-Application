@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% load static %}
+{% include 'user/user_nav_bar.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/video.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/user_post.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"/>
+
+    <script src="{% static 'js/video.js' %}" type="application/javascript"></script>
+<!--    <script src="{% static 'js/dashboard.js' %}" type="application/javascript"></script>-->
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge, and Firefox */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+    </style>
+    <script>
+         function confirmReport() {
+        var confirmation = confirm("Do you want to report this post?");
+        if (confirmation) {
+            // Code to execute if "Yes" is clicked
+            alert("Thank you for reporting.");
+        } else {
+            // Code to execute if "No" is clicked
+            alert("Report canceled.");
+        }
+
+    }
+
+    </script>
+</head>
+<body>
+{% for message in messages %}
+    <script>
+        alert("{{ message }}");
+    </script>
+{% endfor %}
+
+      <div class="main_content" id="post-area">
+              {% for post in Posts %}
+          <div class="post">
+
+        <div class="user_post_detail">
+          <img class="user_profile"
+          src="/media/{{post.profile_picture_url}}">
+          <div><p>@{{post.user_name}}</p></div>
+        </div>
+              {% if post.media_type == 'Image' %}
+               <img class="post-img" src="/media/{{post.media_url}}"  alt="Post Image" />
+              {% elif post.media_type == 'Video' %}
+<!--               <video class="post-img" src="../media/{{post.media_url}}" controls>-->
+<!--                   Your browser does not support the video tag.-->
+<!--               </video>-->
+               <div class="video-container">
+                <video id="myVideo" width="100%" controlsList="nodownload" controls>
+                  <source src="../media/{{post.media_url}}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+                <button id="playButton" class="play-button"></button>
+              </div>
+              {% endif %}
+
+          <div class="post-info">
+            <div class="interaction">
+              <!-- <div> -->
+                <a href="/like_post?post_id={{post.post_id}}" ><i class="bi bi-heart">&nbsp;{{post.likes_count}}</i>
+                    {% if post.likes_count == 0 %}
+                        <p class="like_person">No Likes </p>
+                    {% elif post.likes_count == 1 %}
+                        <p class="like_person">Liked by {{post.likes_count}} person</p>
+                    {% else %}
+                        <p class="like_person">Liked by {{post.likes_count}} people</p>
+                    {% endif %}
+                </a>
+<!--              <i class="bi bi-chat-left-dots">&nbsp;{{post.comments_count}}</i>-->
+<!--              <i class="bi bi-send">&nbsp;{{post.shares_count}}</i>-->
+
+              <div>
+                <a href="/report_post?post_id={{post.post_id}}" >
+                    <i class="bi bi-exclamation-square-fill"><span class="hide-text">Report</span></i></a>
+                <a href="/media/{{post.media_url}}" download="POST" >
+                <i class="bi bi-arrow-down-circle">&nbsp;</i>
+<!--                    {{post.downloads_count}}-->
+              </a>
+              </div>
+            </div>
+            <div class="post-text">
+               <b> {{post.post_title}}</b><br>
+              {{post.content}}
+            </div>
+          </div>
+        </div>
+
+              {% endfor %}
+    </div>
+
+          <div id="notification">
+<!--    <div id="notificationContainer">-->
+<!--      <div id="notificationHeader">Notifications</div>-->
+<!--      <div id="notificationList">-->
+<!--          <div class="notification">-->
+<!--<span class="username">Dinesh</span>-->
+<!-- - -->
+<!--<span class="type">liked your post</span>-->
+<!--</div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+    <div id="friendsSuggestionContainer">
+      <div id="friendsSuggestionHeader">Friend Suggestions</div>
+      <div id="friendSuggestionList">
+            {% for following in followings %}
+
+            {% endfor %}
+        {% for friend in follow %}
+        <div class="friendSuggestion">
+        <div class="friendSuggestionName">{{friend.username}}</div>
+        <a href="/follow/{{friend.username}}_{{friend.user_id}}"> <button class="friendSuggestionButton">follow</button></a>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
